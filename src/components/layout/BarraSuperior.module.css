@@ -1,0 +1,220 @@
+/* ===== Sidebar Desktop ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: var(--md-surface-lowest);
+  border-right: 1px solid var(--md-outline-variant);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+/* Marca / Brand */
+.marca {
+  padding: 24px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.logoArea {
+  width: 36px;
+  height: 36px;
+  background: var(--md-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.logoIcone {
+  color: var(--md-on-primary);
+  font-size: 20px;
+}
+
+.marcaTitulo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--md-primary);
+  letter-spacing: -0.01em;
+}
+
+.marcaSubtitulo {
+  font-size: 11px;
+  color: var(--md-on-surface-variant);
+  letter-spacing: 0.02em;
+}
+
+/* Navegação */
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 10px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--md-on-surface-variant);
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+
+.navItem .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.navItem:hover {
+  background: var(--md-surface-container);
+  color: var(--md-on-surface);
+  text-decoration: none;
+}
+
+.navItemAtivo {
+  background: var(--md-primary-fixed);
+  color: var(--md-primary);
+  font-weight: 600;
+}
+
+.navItemAtivo:hover {
+  background: var(--md-primary-fixed);
+}
+
+/* Rodapé */
+.rodape {
+  padding: 16px;
+  border-top: 1px solid var(--md-outline-variant);
+  margin-top: auto;
+}
+
+.perfilArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--md-primary-fixed);
+  color: var(--md-primary);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.perfilInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.perfilNome {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-on-surface);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.perfilCargo {
+  font-size: 11px;
+  color: var(--md-on-surface-variant);
+}
+
+/* ===== Barra mobile (oculta no desktop) ===== */
+.barraMobile {
+  display: none;
+}
+
+.botaoMenu {
+  display: none;
+}
+
+.backdrop {
+  display: none;
+}
+
+.marcaMobile {
+  display: none;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: none;
+  }
+
+  .sidebarAberta {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .barraMobile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 56px;
+    padding: 0 16px;
+    background: var(--md-surface-lowest);
+    border-bottom: 1px solid var(--md-outline-variant);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+  }
+
+  .botaoMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--md-on-surface);
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+
+  .botaoMenu:hover {
+    background: var(--md-surface-container);
+  }
+
+  .marcaMobile {
+    display: inline;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--md-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(25, 27, 34, 0.3);
+    z-index: 99;
+  }
+}
