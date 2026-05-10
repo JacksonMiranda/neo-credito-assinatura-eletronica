@@ -1,0 +1,19 @@
+.root {
+  min-height: 100vh;
+  background: var(--md-surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--md-surface);
+  margin-left: 240px;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    margin-left: 0;
+  }
+}
