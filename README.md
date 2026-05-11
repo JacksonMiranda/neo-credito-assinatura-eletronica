@@ -1,6 +1,6 @@
-# Neo Crédito — Assinatura Eletrônica
+# Neo Crédito - Assinatura Eletrônica
 
-Sistema de acompanhamento e validação de assinaturas eletrônicas, desenvolvido como teste técnico para a vaga de Front-end Pleno na Neo Crédito.
+Sistema de acompanhamento e validação de assinaturas eletrônicas, desenvolvido como teste técnico de Front-end para a Neo Crédito.
 
 O projeto cobre duas funcionalidades:
 - **Painel CORBAN**: acompanhamento de propostas em processo de assinatura eletrônica, com filtros por status, busca por nome ou número e visualização de detalhes em painel lateral.
@@ -25,7 +25,8 @@ Nenhuma biblioteca de UI (MUI, Chakra, Ant Design etc.) foi utilizada.
 ## Como instalar
 
 ```bash
-cd desafio
+git clone https://github.com/JacksonMiranda/neo-credito-assinatura-eletronica.git
+cd neo-credito-assinatura-eletronica
 npm install
 ```
 
@@ -72,7 +73,7 @@ Mantém o escopo visual por componente sem adicionar dependências. CSS custom p
 
 ### Organização por user story
 
-Cada user story tem uma rota própria (`/` e `/dossie`). A navegação fica em uma barra superior com apenas as duas telas do desafio. O estado de cada tela é local — `useState` sem necessidade de estado global.
+Cada user story tem uma rota própria (`/` e `/dossie`). A navegação foi mantida simples, com acesso apenas às duas telas previstas no desafio: Painel CORBAN e Validação do Dossiê. O estado de cada tela é local, usando `useState` sem necessidade de estado global.
 
 ### Por que Vitest e não Jest puro?
 
