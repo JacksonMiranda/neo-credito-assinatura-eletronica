@@ -1,0 +1,119 @@
+.section {
+  background: var(--md-surface-lowest);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--md-on-surface);
+  letter-spacing: -0.01em;
+  text-align: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.approveBtn,
+.rejectBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
+  transition: background 0.15s, opacity 0.15s;
+  width: 100%;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+@media (max-width: 520px) {
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.approveBtn {
+  background: var(--md-teal);
+  color: var(--md-on-teal);
+  border: none;
+}
+
+.approveBtn:hover:not(:disabled) {
+  background: var(--md-teal-hover);
+}
+
+.rejectBtn {
+  background: transparent;
+  color: var(--md-error);
+  border: 2px solid var(--md-error);
+}
+
+.rejectBtn:hover:not(:disabled) {
+  background: var(--md-error-container);
+}
+
+.approveBtn:disabled,
+.rejectBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Feedback */
+.feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+}
+
+.feedbackApproved {
+  background: rgba(158, 242, 228, 0.2);
+  border-color: var(--md-teal-container);
+}
+
+.feedbackRejected {
+  background: var(--color-danger-light);
+  border-color: var(--color-status-recusado-border);
+}
+
+.feedbackIcon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.feedbackApproved .feedbackIcon {
+  color: var(--md-teal);
+}
+
+.feedbackRejected .feedbackIcon {
+  color: var(--md-error);
+}
+
+.feedbackStatus {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--md-on-surface);
+}
+
+.feedbackReason {
+  font-size: 13px;
+  color: var(--md-on-surface-variant);
+  margin-top: var(--space-1);
+}

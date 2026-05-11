@@ -1,0 +1,140 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(24px, 3vw, 40px);
+  box-sizing: border-box;
+}
+
+/* Header */
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--md-on-surface);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.headerMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.propNumber {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  color: var(--md-primary);
+}
+
+.sep {
+  color: var(--md-outline-variant);
+  font-size: 14px;
+}
+
+.clientName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-on-surface);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+}
+
+.status_PENDENTE_VALIDACAO {
+  background: var(--color-status-aguardando-bg);
+  color: var(--color-status-aguardando-text);
+  border-color: var(--color-status-aguardando-border);
+}
+
+.status_AGUARDANDO_AUDITORIA {
+  background: rgba(158, 242, 228, 0.3);
+  color: var(--md-teal);
+  border-color: var(--md-teal-container);
+}
+
+.status_REPROVADO {
+  background: var(--color-status-recusado-bg);
+  color: var(--color-status-recusado-text);
+  border-color: var(--color-status-recusado-border);
+}
+
+/* 2-col grid */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.95fr) minmax(520px, 1.25fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.colLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.colRight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+@media (max-width: 1120px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page {
+    padding: 24px 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 16px 12px;
+    gap: var(--space-4);
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .headerMeta {
+    gap: 6px;
+  }
+
+  .sep {
+    display: none;
+  }
+}
