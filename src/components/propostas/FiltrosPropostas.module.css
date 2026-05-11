@@ -1,0 +1,101 @@
+.filters {
+  display: flex;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+  background: var(--md-surface-lowest);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* Busca */
+.searchWrapper {
+  flex: 1 1 460px;
+  min-width: 320px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  color: var(--md-outline);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-md);
+  background: var(--md-surface-low);
+  color: var(--md-on-surface);
+  outline: none;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.searchInput:focus {
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 3px rgba(0, 50, 138, 0.1);
+}
+
+/* Select */
+.selectWrapper {
+  flex: 0 0 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 10px;
+  color: var(--md-outline);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.select {
+  width: 100%;
+  appearance: none;
+  padding: 8px 36px 8px 12px;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--radius-md);
+  background: var(--md-surface-low);
+  color: var(--md-on-surface);
+  outline: none;
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.select:focus {
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 3px rgba(0, 50, 138, 0.1);
+}
+
+@media (max-width: 640px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .searchWrapper,
+  .selectWrapper {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .searchWrapper {
+    min-width: unset;
+  }
+
+  .selectWrapper {
+    flex-basis: auto;
+  }
+}

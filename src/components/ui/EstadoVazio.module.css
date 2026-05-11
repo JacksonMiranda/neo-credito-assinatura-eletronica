@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10) var(--space-6);
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.icon {
+  font-size: 36px;
+  opacity: 0.5;
+}
+
+.mensagem {
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.detalhe {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
