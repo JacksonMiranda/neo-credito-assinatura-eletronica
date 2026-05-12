@@ -5,9 +5,10 @@ import styles from './SecaoDadosSignatario.module.css';
 
 interface Props {
   signatario: DadosSignatario;
+  urlMapa: string;
 }
 
-export default function SecaoDadosSignatario({ signatario }: Props) {
+export default function SecaoDadosSignatario({ signatario, urlMapa }: Props) {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Dados do Signatário</h2>
@@ -50,6 +51,7 @@ export default function SecaoDadosSignatario({ signatario }: Props) {
           lat={signatario.coordenadas.lat}
           lng={signatario.coordenadas.lng}
           endereco={signatario.enderecoAproximado}
+          urlMapa={urlMapa}
         />
       </div>
     </section>

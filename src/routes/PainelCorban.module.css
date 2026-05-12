@@ -36,6 +36,13 @@
   width: 100%;
 }
 
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .count {
   display: inline-flex;
   align-items: center;
@@ -47,7 +54,6 @@
   font-weight: 600;
   color: var(--md-on-surface-variant);
   white-space: nowrap;
-  margin-left: auto;
   flex-shrink: 0;
 }
 

@@ -50,4 +50,5 @@ export const LABEL_STATUS_DOSSIE: Record<string, string> = {
   PENDENTE_VALIDACAO: 'Pendente de validação',
   AGUARDANDO_AUDITORIA: 'Aguardando auditoria',
   REPROVADO: 'Reprovado',
+  PENDENTE_REGULARIZACAO: 'Pendente de regularização',
 };

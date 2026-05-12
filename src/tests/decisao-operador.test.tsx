@@ -1,13 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import ValidacaoDossie from '../routes/ValidacaoDossie';
 
-function renderDossie() {
+function renderDossie(numeroProposta = 'NEO-2026-0001') {
   return render(
-    <MemoryRouter>
-      <ValidacaoDossie />
+    <MemoryRouter initialEntries={[`/dossie/${numeroProposta}`]}>
+      <Routes>
+        <Route path="/dossie/:propostaId" element={<ValidacaoDossie />} />
+        <Route path="/" element={<div>Painel CORBAN</div>} />
+      </Routes>
     </MemoryRouter>
   );
 }
@@ -54,7 +57,7 @@ describe('ValidacaoDossie — decisão do operador', () => {
     expect(confirmBtn).not.toBeDisabled();
   });
 
-  it('reprovar: confirmar com motivo válido muda status para Reprovado', async () => {
+  it('reprovar: confirmar com motivo válido muda status para Pendente de Regularização', async () => {
     const user = userEvent.setup();
     renderDossie();
 
@@ -65,7 +68,34 @@ describe('ValidacaoDossie — decisão do operador', () => {
 
     await user.click(screen.getByRole('button', { name: /confirmar reprovação/i }));
 
-    expect(screen.getAllByText(/reprovado/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/pendente de regularização/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/selfie diverge do documento/i)).toBeInTheDocument();
+  });
+});
+
+describe('ValidacaoDossie — roteamento por número de proposta', () => {
+  it('NEO-2026-0010 carrega João Paulo Vieira, não outro cliente', () => {
+    renderDossie('NEO-2026-0010');
+    expect(screen.getAllByText('João Paulo Vieira').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Adriana Ferreira Lima')).not.toBeInTheDocument();
+    expect(screen.queryByText('Fábio Augusto Teixeira')).not.toBeInTheDocument();
+    expect(screen.queryByText('Camila Rodrigues Neves')).not.toBeInTheDocument();
+  });
+
+  it('NEO-2026-0006 carrega Fábio Augusto Teixeira, não outro cliente', () => {
+    renderDossie('NEO-2026-0006');
+    expect(screen.getAllByText('Fábio Augusto Teixeira').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Adriana Ferreira Lima')).not.toBeInTheDocument();
+    expect(screen.queryByText('João Paulo Vieira')).not.toBeInTheDocument();
+  });
+
+  it('proposta inexistente exibe "Dossiê não encontrado" e botão de voltar, sem carregar outro dossiê', () => {
+    renderDossie('NEO-2026-9999');
+    expect(screen.getByText(/dossiê não encontrado/i)).toBeInTheDocument();
+    expect(screen.getByText(/NEO-2026-9999/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /voltar para o painel corban/i })).toBeInTheDocument();
+    expect(screen.queryByText('Adriana Ferreira Lima')).not.toBeInTheDocument();
+    expect(screen.queryByText('João Paulo Vieira')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /aprovado/i })).not.toBeInTheDocument();
   });
 });

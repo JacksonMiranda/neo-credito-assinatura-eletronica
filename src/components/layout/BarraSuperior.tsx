@@ -58,16 +58,7 @@ export default function BarraSuperior() {
             <span className="material-symbols-outlined">dashboard</span>
             Painel CORBAN
           </NavLink>
-          <NavLink
-            to="/dossie"
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemAtivo : ''}`
-            }
-            onClick={() => setMenuAberto(false)}
-          >
-            <span className="material-symbols-outlined">folder_open</span>
-            Validação do Dossiê
-          </NavLink>
+
         </nav>
 
         <div className={styles.rodape}>

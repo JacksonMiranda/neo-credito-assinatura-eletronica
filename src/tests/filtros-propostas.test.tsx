@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import PainelCorban from '../routes/PainelCorban';
+import BarraSuperior from '../components/layout/BarraSuperior';
+import PainelDetalhesProposta from '../components/propostas/PainelDetalhesProposta';
+import { propostas } from '../data/propostas.mock';
 
 function renderPainel() {
   return render(
@@ -80,5 +83,63 @@ describe('PainelCorban — filtros e busca', () => {
 
     expect(screen.getAllByText('NEO-2026-0001').length).toBeGreaterThan(0);
     expect(screen.getByText(/link de assinatura/i)).toBeInTheDocument();
+  });
+});
+
+describe('BarraSuperior — navegação', () => {
+  it('não exibe link de Validação do Dossiê no sidebar', () => {
+    render(
+      <MemoryRouter>
+        <BarraSuperior />
+      </MemoryRouter>
+    );
+    expect(screen.queryByText(/validação do dossiê/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/painel corban/i)).toBeInTheDocument();
+  });
+});
+
+describe('PainelDetalhesProposta — acesso ao dossiê', () => {
+  const propostaAssinada = propostas.find((p) => p.status === 'ASSINADO')!;
+  const propostaAguardando = propostas.find((p) => p.status === 'AGUARDANDO')!;
+
+  it('proposta ASSINADA exibe botão "Validar dossiê" e não exibe ações não solicitadas', () => {
+    render(
+      <MemoryRouter>
+        <PainelDetalhesProposta proposta={propostaAssinada} onFechar={() => {}} />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('button', { name: /validar dossiê/i })).toBeInTheDocument();
+    expect(screen.queryByText(/dossiê ficará disponível/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /reenviar link/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /baixar/i })).not.toBeInTheDocument();
+  });
+
+  it('proposta não assinada exibe mensagem informativa e não exibe botões operacionais', () => {
+    render(
+      <MemoryRouter>
+        <PainelDetalhesProposta proposta={propostaAguardando} onFechar={() => {}} />
+      </MemoryRouter>
+    );
+    expect(screen.queryByRole('button', { name: /validar dossiê/i })).not.toBeInTheDocument();
+    expect(screen.getByText(/dossiê ficará disponível após a conclusão da assinatura/i)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /reenviar link/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /baixar/i })).not.toBeInTheDocument();
+  });
+
+  it('clique em "Validar dossiê" navega para /dossie/:numeroProposta', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route
+            path="/"
+            element={<PainelDetalhesProposta proposta={propostaAssinada} onFechar={() => {}} />}
+          />
+          <Route path="/dossie/:propostaId" element={<div data-testid="tela-dossie">Dossiê</div>} />
+        </Routes>
+      </MemoryRouter>
+    );
+    await user.click(screen.getByRole('button', { name: /validar dossiê/i }));
+    expect(screen.getByTestId('tela-dossie')).toBeInTheDocument();
   });
 });

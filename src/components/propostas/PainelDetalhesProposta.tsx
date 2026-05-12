@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { Proposta } from '../../types/proposta';
 import {
   formatarData,
@@ -21,6 +22,7 @@ const ICONE_CANAL: Record<string, string> = {
 };
 
 export default function PainelDetalhesProposta({ proposta, onFechar }: Props) {
+  const navigate = useNavigate();
   const [copiado, setCopiado] = useState(false);
 
   if (!proposta) return null;
@@ -30,6 +32,11 @@ export default function PainelDetalhesProposta({ proposta, onFechar }: Props) {
       setCopiado(true);
       setTimeout(() => setCopiado(false), 2000);
     });
+  }
+
+  function validarDossie() {
+    onFechar();
+    navigate(`/dossie/${proposta!.numero}`);
   }
 
   return (
@@ -124,14 +131,17 @@ export default function PainelDetalhesProposta({ proposta, onFechar }: Props) {
         </section>
 
         <div className={styles.painelRodape}>
-          <button className={styles.btnOutline} type="button">
-            <span className="material-symbols-outlined">send</span>
-            Reenviar Link
-          </button>
-          <button className={styles.btnPrimary} type="button">
-            <span className="material-symbols-outlined">download</span>
-            Baixar Dossiê
-          </button>
+          {proposta.status === 'ASSINADO' ? (
+            <button className={styles.btnDossie} type="button" onClick={validarDossie}>
+              <span className="material-symbols-outlined">fact_check</span>
+              Validar dossiê
+            </button>
+          ) : (
+            <p className={styles.dossieIndisponivel}>
+              <span className="material-symbols-outlined" aria-hidden="true">info</span>
+              O dossiê ficará disponível após a conclusão da assinatura.
+            </p>
+          )}
         </div>
       </aside>
     </>

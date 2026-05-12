@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { Proposta, StatusAssinatura } from '../types/proposta';
-import { propostas as todasPropostas } from '../data/propostas.mock';
+import { propostas as propostasMock } from '../data/propostas.mock';
 import FiltrosPropostas from '../components/propostas/FiltrosPropostas';
 import TabelaPropostas from '../components/propostas/TabelaPropostas';
 import PainelDetalhesProposta from '../components/propostas/PainelDetalhesProposta';
@@ -13,7 +13,7 @@ export default function PainelCorban() {
 
   const filtradas = useMemo(() => {
     const termo = busca.trim().toLowerCase();
-    return todasPropostas.filter((p) => {
+    return propostasMock.filter((p) => {
       const matchStatus = filtroStatus === '' || p.status === filtroStatus;
       const matchBusca =
         termo === '' ||
@@ -49,9 +49,11 @@ export default function PainelCorban() {
           onBuscaChange={setBusca}
           onFiltroStatusChange={setFiltroStatus}
         />
-        <span className={styles.count}>
-          {filtradas.length} {filtradas.length === 1 ? 'proposta' : 'propostas'}
-        </span>
+        <div className={styles.toolbarRight}>
+          <span className={styles.count}>
+            {filtradas.length} {filtradas.length === 1 ? 'proposta' : 'propostas'}
+          </span>
+        </div>
       </div>
 
       <TabelaPropostas

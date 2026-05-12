@@ -36,7 +36,7 @@ export default function SecaoDecisaoOperador({
       motivo,
       dataDecisao: new Date().toISOString(),
     };
-    onDecisao('REPROVADO', d);
+    onDecisao('PENDENTE_REGULARIZACAO', d);
     setEtapa('done');
   }
 

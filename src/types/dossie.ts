@@ -1,7 +1,8 @@
 export type StatusDossie =
   | 'PENDENTE_VALIDACAO'
   | 'AGUARDANDO_AUDITORIA'
-  | 'REPROVADO';
+  | 'REPROVADO'
+  | 'PENDENTE_REGULARIZACAO';
 
 export interface DadosSignatario {
   nomeCompleto: string;
@@ -15,6 +16,7 @@ export interface DadosSignatario {
 export interface EvidenciaBiometrica {
   urlSelfie: string;
   urlDocumento: string;
+  urlMapa: string;
   pontuacaoSimilaridade: number; // 0–100
 }
 

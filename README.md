@@ -43,7 +43,7 @@ npm run dev
 Acesse `http://localhost:5173` no navegador.
 
 - `/` → Painel CORBAN
-- `/dossie` → Validação do Dossiê
+- `/dossie/:propostaId` → Validação do Dossiê (acessado via botão "Validar dossiê" em proposta com status **Assinado**)
 
 ---
 
@@ -73,7 +73,7 @@ Mantém o escopo visual por componente sem adicionar dependências. CSS custom p
 
 ### Organização por user story
 
-Cada user story tem uma rota própria (`/` e `/dossie`). A navegação foi mantida simples, com acesso apenas às duas telas previstas no desafio: Painel CORBAN e Validação do Dossiê. O estado de cada tela é local, usando `useState` sem necessidade de estado global.
+Cada user story tem uma rota própria (`/` e `/dossie/:propostaId`). A navegação para a validação do dossiê ocorre exclusivamente a partir do **Painel CORBAN**: o operador seleciona uma proposta com status **Assinado** no painel lateral e clica em **Validar dossiê**, que navega para `/dossie/:numeroProposta`. O sidebar contém apenas o item **Painel CORBAN**, pois o dossiê só existe após a assinatura do contrato. O estado de cada tela é local, usando `useState` sem necessidade de estado global.
 
 ### Por que Vitest e não Jest puro?
 
@@ -88,7 +88,7 @@ Estado mantido em `PainelCorban` com `useMemo` para o filtro combinado. A busca 
 ## Premissas
 
 - Dados mockados em memória; sem integração com API real.
-- O dossiê exibido em `/dossie` corresponde à proposta `NEO-2026-0001`, como exemplo fixo. Em produção, seria aberto a partir da listagem.
+- O dossiê é aberto diretamente a partir de uma proposta com status **Assinado** via botão "Validar dossiê" no painel lateral. A navegação usa o número da proposta como parâmetro de rota (`/dossie/:numeroProposta`), garantindo que o dossiê exibido corresponda sempre à proposta selecionada. Três dossiês estão disponíveis: `NEO-2026-0001` (Adriana Ferreira Lima), `NEO-2026-0006` (Fábio Augusto Teixeira) e `NEO-2026-0010` (João Paulo Vieira). Se a rota for acessada com um número sem dossiê cadastrado, a tela exibe uma mensagem de ausência e um link para voltar ao painel.
 - O mapa de localização é ilustrativo. Em produção, usaria a API do Google Maps ou similar.
 - As imagens de selfie, documento e mapa são assets locais, usados apenas para representar o dossiê.
 
@@ -97,8 +97,18 @@ Estado mantido em `PainelCorban` com `useMemo` para o filtro combinado. A busca 
 ## O que eu faria com mais tempo
 
 - **Integração com API real**: substituir os mocks por chamadas a endpoints, com tratamento de loading, erro e paginação.
-- **Navegação entre telas**: permitir abrir o dossiê diretamente a partir de uma proposta assinada no painel.
 - **Testes adicionais**: cobrir cenários de borda, como falhas de rede e comportamentos em telas pequenas.
 - **Mapa dinâmico**: usar Google Maps ou Mapbox com marcador posicionado pelas coordenadas reais do dossiê.
 - **Foco gerenciado em modais**: garantir que o foco vá para o primeiro elemento interativo ao abrir dialog/drawer, e retorne ao elemento de origem ao fechar.
 - **Persistência de filtros**: salvar os filtros ativos do painel em `sessionStorage` para não perder o contexto ao navegar para o dossiê e voltar.
+---
+
+## Validação local
+
+Antes da entrega, os três comandos abaixo foram executados sem erros ou avisos:
+
+```bash
+npm run lint   # ESLint: 0 problems
+npm test       # 17 testes — todos passaram
+npm run build  # Vite: built com sucesso
+```

@@ -12,7 +12,7 @@ export default function App() {
         <main className={styles.main}>
           <Routes>
             <Route path="/" element={<PainelCorban />} />
-            <Route path="/dossie" element={<ValidacaoDossie />} />
+            <Route path="/dossie/:propostaId" element={<ValidacaoDossie />} />
           </Routes>
         </main>
       </div>

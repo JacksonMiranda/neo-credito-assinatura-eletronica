@@ -4,14 +4,15 @@ interface Props {
   lat: number;
   lng: number;
   endereco: string;
+  urlMapa: string;
 }
 
-export default function MapaEstatico({ lat, lng, endereco }: Props) {
+export default function MapaEstatico({ lat, lng, endereco, urlMapa }: Props) {
   return (
     <div className={styles.container} role="img" aria-label={`Mapa aproximado: ${endereco}`}>
       <img
         className={styles.mapImage}
-        src="/ativos-prototipo/mapa.png"
+        src={urlMapa}
         alt=""
         aria-hidden="true"
       />
